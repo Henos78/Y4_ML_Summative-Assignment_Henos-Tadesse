@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health Chatbot</title>
+</head>
+<body>
+    <h1>Mental Health Chatbot</h1>
+    <form id="chat-form">
+        <label for="user_input">You:</label>
+        <input type="text" id="user_input" name="user_input">
+        <button type="submit">Submit</button>
+    </form>
+    <div id="model_response"></div>
+    <script>
+        const chatForm = document.getElementById('chat-form');
+        const modelResponseDiv = document.getElementById('model_response');
+
+        chatForm.addEventListener('submit', async function (event) {
+            event.preventDefault();
+            const formData = new FormData(chatForm);
+            const response = await fetch('/chat', { method: 'POST', body: formData });
+            const data = await response.json();
+            modelResponseDiv.innerHTML = `<p>Model: ${data.model_response}</p>`;
+        });
+    </script>
